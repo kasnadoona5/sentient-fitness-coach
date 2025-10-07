@@ -94,17 +94,16 @@ sudo apt update && sudo apt upgrade -y
 # Install software-properties-common (needed for adding PPA)
 sudo apt install software-properties-common -y
 
-#Add deadsnakes PPA for Python 3.11+
+# Add deadsnakes PPA for Python 3.11+
 sudo add-apt-repository ppa:deadsnakes/ppa -y
 sudo apt update
 
-#Install Python 3.11, venv, pip, and required tools
-sudo apt install python3.11 python3.11-venv python3.11-dev git nginx -y
+# Install Python 3.11, venv, dev tools, git, and nginx
+sudo apt install python3.11 python3.11-venv python3.11-dev python3.11-distutils git nginx -y
 
-#Verify Python 3.11 installation (required for Sentient Framework)
+# Verify Python 3.11 installation (required for Sentient Framework)
 python3.11 --version
 ```
-
 
 
 ### Step 2: Clone Repository
@@ -123,12 +122,14 @@ cd sentient-fitness-coach
 ### Step 3: Create Python Virtual Environment
 
 ```bash
-# Create virtual environment
-python3 -m venv venv
+# Create virtual environment with Python 3.11
+python3.11 -m venv venv
 
 # Activate virtual environment
 source venv/bin/activate
-# Your prompt should now show (venv)
+
+# Verify you're using Python 3.11
+python --version
 ```
 
 ### Step 4: Install Python Dependencies

@@ -7,8 +7,7 @@ An intelligent AI-powered fitness and nutrition coach compatible with the Sentie
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![Status: Production](https://img.shields.io/badge/status-production-success.svg)]()
 
-<img width="1289" height="1260" alt="image" src="https://github.com/user-attachments/assets/22eb532c-1367-4606-b4fc-8d5233f4b9c6" />
-
+<img width="1289" alt="Fitness Coach Interface" src="https://github.com/user-attachments/assets/22eb532c-1367-4606-b4fc-8d5233f4b9c6" />
 
 ---
 
@@ -22,7 +21,6 @@ This agent follows **Sentient platform API specifications** and provides:
 - ✅ **Agent metadata** and versioning
 - ✅ **Production-ready** deployment with Nginx + Gunicorn
 - ✅ **Web interface** for easy interaction
-
 
 ---
 
@@ -73,59 +71,59 @@ Before installation, ensure you have:
 
 ### Step 1: System Setup
 
-Update system packages
+```bash
+# Update system packages
 sudo apt update && sudo apt upgrade -y
 
-Install Python 3.11 and required tools
+# Install Python 3.11 and required tools
 sudo apt install python3.11 python3.11-venv python3-pip git nginx -y
 
-Verify Python installation
+# Verify Python installation
 python3.11 --version
-
-Expected output: Python 3.11.x
-text
+# Expected output: Python 3.11.x
+```
 
 ### Step 2: Clone Repository
 
-Navigate to web directory
+```bash
+# Navigate to web directory
 cd /var/www
 
-Clone the project
+# Clone the project
 git clone https://github.com/kasnadoona5/sentient-fitness-coach.git
 
-Enter project directory
+# Enter project directory
 cd sentient-fitness-coach
 
-Verify files
+# Verify files
 ls -la
-
-text
+```
 
 **You should see:** `app.py`, `agent.py`, `index.html`, `tools/`, etc.
 
 ### Step 3: Create Python Virtual Environment
 
-Create virtual environment
+```bash
+# Create virtual environment
 python3.11 -m venv venv
 
-Activate virtual environment
+# Activate virtual environment
 source venv/bin/activate
-
-Your prompt should now show (venv) at the beginning
-text
+# Your prompt should now show (venv) at the beginning
+```
 
 ### Step 4: Install Python Dependencies
 
-Upgrade pip first
+```bash
+# Upgrade pip first
 pip install --upgrade pip
 
-Install required packages
+# Install required packages
 pip install flask gunicorn httpx python-dotenv
 
-Verify installations
+# Verify installations
 pip list
-
-text
+```
 
 **Required packages:** flask, gunicorn, httpx, python-dotenv
 
@@ -150,78 +148,79 @@ text
 
 ### Step 6: Configure Environment Variables
 
-Create .env file from example
+```bash
+# Create .env file from example
 cp .env.example .env
 
-Edit with your API keys
+# Edit with your API keys
 nano .env
-
-text
+```
 
 **Update with YOUR actual keys:**
 
-OpenRouter LLM (get from https://openrouter.ai/)
+```env
+# OpenRouter LLM (get from https://openrouter.ai/)
 OPENROUTER_API_KEY=sk-or-v1-YOUR-ACTUAL-KEY-HERE
 
-Nutritionix API (get from https://nutritionix.com/business/api)
+# Nutritionix API (get from https://nutritionix.com/business/api)
 NUTRITIONIX_APP_ID=your-actual-app-id-here
 NUTRITIONIX_API_KEY=your-actual-api-key-here
 
-Agent Configuration
+# Agent Configuration
 AGENT_NAME=Fitness Coach
 PORT=8000
 APP_URL=http://your-server-ip-here
 
-Flask Environment
+# Flask Environment
 FLASK_ENV=production
-
-text
+```
 
 **Save:** Press `CTRL+X`, then `Y`, then `Enter`
 
 ### Step 7: Create Required Directories
 
-Create logs and data directories
+```bash
+# Create logs and data directories
 mkdir -p logs data
 
-Verify directory structure
+# Verify directory structure
 ls -la
-
-text
+```
 
 ### Step 8: Test the Application
 
-Ensure virtual environment is active
+```bash
+# Ensure virtual environment is active
 source venv/bin/activate
 
-Run test server
+# Run test server
 python app.py
-
-text
+```
 
 **Expected output:**
+```
 Running on http://0.0.0.0:8000
-
-text
+```
 
 **In another terminal, test:**
 
-Test health endpoint
+```bash
+# Test health endpoint
 curl http://localhost:8000/health
-
-Expected: {"status": "healthy", ...}
-text
+# Expected: {"status": "healthy", ...}
+```
 
 **Stop test server:** Press `CTRL+C`
 
 ### Step 9: Create Systemd Service (Production)
 
+```bash
 sudo nano /etc/systemd/system/sentient-fitness.service
-
-text
+```
 
 **Paste this configuration:**
 
+```ini
 [Unit]
 Description=Sentient Fitness Coach Agent
 After=network.target
@@ -237,99 +236,97 @@ RestartSec=10
 
 [Install]
 WantedBy=multi-user.target
-
-text
+```
 
 **Save and enable service:**
 
-Reload systemd
+```bash
+# Reload systemd
 sudo systemctl daemon-reload
 
-Enable service (start on boot)
+# Enable service (start on boot)
 sudo systemctl enable sentient-fitness.service
 
-Start service
+# Start service
 sudo systemctl start sentient-fitness.service
 
-Check status
+# Check status
 sudo systemctl status sentient-fitness.service
-
-text
+```
 
 ### Step 10: Configure Nginx Reverse Proxy
 
-Create Nginx configuration
+```bash
+# Create Nginx configuration
 sudo nano /etc/nginx/sites-available/sentient-fitness
-
-text
+```
 
 **Paste this configuration:**
 
+```nginx
 server {
-listen 80 default_server;
-server_name _;
+    listen 80 default_server;
+    server_name _;
 
-text
-# Serve web interface
-location / {
-    root /var/www/sentient-fitness-coach;
-    index index.html;
-    try_files $uri $uri/ =404;
-}
+    # Serve web interface
+    location / {
+        root /var/www/sentient-fitness-coach;
+        index index.html;
+        try_files $uri $uri/ =404;
+    }
 
-# Proxy API requests
-location /chat {
-    proxy_pass http://127.0.0.1:8000;
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection 'upgrade';
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_buffering off;
-    proxy_read_timeout 300;
-}
+    # Proxy API requests
+    location /chat {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_buffering off;
+        proxy_read_timeout 300;
+    }
 
-# Health check endpoint
-location /health {
-    proxy_pass http://127.0.0.1:8000;
-    proxy_set_header Host $host;
+    # Health check endpoint
+    location /health {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+    }
 }
-}
-
-text
+```
 
 **Enable site and restart Nginx:**
 
-Enable the site
+```bash
+# Enable the site
 sudo ln -sf /etc/nginx/sites-available/sentient-fitness /etc/nginx/sites-enabled/
 
-Remove default site (if exists)
+# Remove default site (if exists)
 sudo rm -f /etc/nginx/sites-enabled/default
 
-Test Nginx configuration
+# Test Nginx configuration
 sudo nginx -t
 
-Restart Nginx
+# Restart Nginx
 sudo systemctl restart nginx
 
-Check Nginx status
+# Check Nginx status
 sudo systemctl status nginx
-
-text
+```
 
 ### Step 11: Final Testing
 
 **Test API directly:**
 
-Test health check
+```bash
+# Test health check
 curl http://localhost/health
 
-Test chat endpoint
-curl -X POST http://localhost/chat
--H "Content-Type: application/json"
--d '{"user_id":"test","message":"How many calories in 3 eggs?"}'
-
-text
+# Test chat endpoint
+curl -X POST http://localhost/chat \
+  -H "Content-Type: application/json" \
+  -d '{"user_id":"test","message":"How many calories in 3 eggs?"}'
+```
 
 **Test web interface:**
 
@@ -350,35 +347,35 @@ Returns web chat interface (HTML)
 Health check endpoint (Sentient standard)
 
 **Response:**
+```json
 {
-"status": "healthy",
-"agent": "Fitness Coach AI",
-"version": "1.0.0",
-"framework": "Sentient Agent Framework"
+  "status": "healthy",
+  "agent": "Fitness Coach AI",
+  "version": "1.0.0",
+  "framework": "Sentient Agent Framework"
 }
-
-text
+```
 
 ### Endpoint: `POST /chat`
 
 Main conversational endpoint with Server-Sent Events streaming
 
 **Request:**
+```json
 {
-"user_id": "unique_user_identifier",
-"message": "Your question or request"
+  "user_id": "unique_user_identifier",
+  "message": "Your question or request"
 }
-
-text
+```
 
 **Response:** SSE stream
+```
 data: {"content": "Based", "type": "chunk"}
 data: {"content": " on", "type": "chunk"}
 data: {"content": " nutrition", "type": "chunk"}
 ...
 data: {"type": "done"}
-
-text
+```
 
 ---
 
@@ -400,25 +397,25 @@ text
 
 ## 📂 Project Structure
 
+```
 sentient-fitness-coach/
-├── index.html # Web chat interface
-├── app.py # Flask application & API routes
-├── wsgi.py # WSGI entry point for Gunicorn
-├── sentient_agent.py # Sentient-compatible agent wrapper
-├── agent.py # Core agent logic & message processing
-├── llm_client.py # OpenRouter LLM integration
-├── memory.py # User memory & conversation history
+├── index.html              # Web chat interface
+├── app.py                  # Flask application & API routes
+├── wsgi.py                 # WSGI entry point for Gunicorn
+├── sentient_agent.py       # Sentient-compatible agent wrapper
+├── agent.py                # Core agent logic & message processing
+├── llm_client.py           # OpenRouter LLM integration
+├── memory.py               # User memory & conversation history
 ├── tools/
-│ ├── nutrition.py # Nutritionix API integration
-│ └── exercise.py # Workout plan generator
-├── logs/ # Application logs (auto-created)
-├── data/ # User data storage (auto-created)
-├── .env # API keys (DO NOT commit!)
-├── .env.example # Environment template
-├── .gitignore # Git ignore rules
-└── README.md # This file
-
-text
+│   ├── nutrition.py        # Nutritionix API integration
+│   └── exercise.py         # Workout plan generator
+├── logs/                   # Application logs (auto-created)
+├── data/                   # User data storage (auto-created)
+├── .env                    # API keys (DO NOT commit!)
+├── .env.example            # Environment template
+├── .gitignore              # Git ignore rules
+└── README.md               # This file
+```
 
 ---
 
@@ -427,45 +424,45 @@ text
 ### Issue: "Module not found" errors
 
 **Solution:**
+```bash
 source venv/bin/activate
 pip install flask gunicorn httpx python-dotenv
-
-text
+```
 
 ### Issue: "API key not configured"
 
 **Solution:** Check your `.env` file has correct API keys
+```bash
 cat .env | grep API
-
-text
+```
 
 ### Issue: Port 8000 already in use
 
 **Solution:**
-Find process using port 8000
+```bash
+# Find process using port 8000
 sudo lsof -i :8000
 
-Kill the process (replace PID)
+# Kill the process (replace PID)
 sudo kill -9 PID
 
-Restart service
+# Restart service
 sudo systemctl restart sentient-fitness.service
-
-text
+```
 
 ### Issue: Nginx 502 Bad Gateway
 
 **Solution:**
-Check if backend is running
+```bash
+# Check if backend is running
 curl http://127.0.0.1:8000/health
 
-If not running, restart service
+# If not running, restart service
 sudo systemctl restart sentient-fitness.service
 
-Check service logs
+# Check service logs
 sudo journalctl -u sentient-fitness.service -n 50
-
-text
+```
 
 ---
 
@@ -473,26 +470,26 @@ text
 
 ### View Application Logs
 
-Real-time logs
+```bash
+# Real-time logs
 tail -f logs/agent.log
 
-Last 50 lines
+# Last 50 lines
 tail -50 logs/agent.log
-
-text
+```
 
 ### View Service Logs
 
-Real-time service logs
+```bash
+# Real-time service logs
 sudo journalctl -u sentient-fitness.service -f
 
-Last 100 lines
+# Last 100 lines
 sudo journalctl -u sentient-fitness.service -n 100
 
-Filter for errors
+# Filter for errors
 sudo journalctl -u sentient-fitness.service | grep -i error
-
-text
+```
 
 ---
 
@@ -574,8 +571,8 @@ The agent remembers your preferences:
 
 ---
 
+<img width="961" alt="Chat Interface Demo" src="https://github.com/user-attachments/assets/91d7f96a-4e9b-4b5d-85f2-881072cfb48b" />
+
+---
+
 **Built with ❤️ for the Sentient decentralized AI network**
-
-
-<img width="961" height="1244" alt="image" src="https://github.com/user-attachments/assets/91d7f96a-4e9b-4b5d-85f2-881072cfb48b" />
-

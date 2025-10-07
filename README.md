@@ -1,26 +1,37 @@
 # 🏋️ Sentient Fitness Coach Agent
 
-> **Built for the [Sentient Platform](https://sentient.xyz)** - Following [Sentient Agent Framework standards](https://github.com/sentient-agi/Sentient-Agent-Framework) 
+> **Built with [Sentient Agent Framework](https://github.com/sentient-agi/Sentient-Agent-Framework)** - Production-ready AI agent with intelligent coaching capabilities
 
-An intelligent AI-powered fitness and nutrition coach compatible with the Sentient decentralized AI platform. Provides accurate calorie tracking, personalized workout plans, and real-time coaching through natural conversation.
+An AI-powered fitness and nutrition coach that provides accurate calorie tracking, personalized workout plans, and intelligent coaching through natural conversation. Built using the official Sentient Agent Framework with AI-powered intent classification.
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![Sentient Framework](https://img.shields.io/badge/framework-Sentient-blue.svg)](https://github.com/sentient-agi/Sentient-Agent-Framework)
 [![Status: Production](https://img.shields.io/badge/status-production-success.svg)]()
 
 <img width="1289" alt="Fitness Coach Interface" src="https://github.com/user-attachments/assets/22eb532c-1367-4606-b4fc-8d5233f4b9c6" />
 
 ---
 
-## 🤝 Sentient Integration
+## 🚀 New in v2.0
 
-This agent follows **Sentient platform API specifications** and provides:
+✨ **AI-Powered Intent Classification** - Automatically detects nutrition queries without hardcoded food lists  
+✨ **Typo Tolerance** - Handles common misspellings ("colories", "calory")  
+✨ **Zero Hallucination** - Only uses real Nutritionix API data for calories  
+✨ **Smart Compound Queries** - Handles multiple foods in one request  
+✨ **Free Tier Model** - Uses Mistral Small 3.2 24B (131K context) completely free  
+✨ **Conversation Memory** - Backend memory maintains context across messages  
 
-- ✅ **REST API** endpoints compatible with Sentient standards
+---
+
+## 🤝 Sentient Framework Integration
+
+This agent is built with the **official Sentient Agent Framework** and provides:
+
+- ✅ **AbstractAgent** implementation following Sentient standards
 - ✅ **Server-Sent Events (SSE)** streaming responses
-- ✅ **Health check** and capability endpoints
-- ✅ **Agent metadata** and versioning
-- ✅ **Production-ready** deployment with Nginx + Gunicorn
-- ✅ **Web interface** for easy interaction
+- ✅ **Session management** with user tracking
+- ✅ **Async/await** architecture for optimal performance
+- ✅ **Production-ready** deployment with systemd + Nginx
 
 ---
 
@@ -28,29 +39,34 @@ This agent follows **Sentient platform API specifications** and provides:
 
 ### 🍎 Nutrition Intelligence
 - **Accurate calorie counting** via Nutritionix API
-- Natural language food queries (*"How many calories in 3 eggs?"*)
+- **AI-powered food detection** - No hardcoded food lists
+- Natural language queries (*"How many calories in 3 eggs?"*)
+- **Typo tolerance** (*"How many colories in avocado?"*)
 - Detailed macronutrient breakdown (protein, carbs, fat, fiber, sugar)
-- Smart food extraction from conversational questions
+- **Compound query support** (*"3 eggs and 2 slices of toast"*)
 - Support for 200,000+ food items
 
 ### 💪 Personalized Workouts
-- Custom workout plan generation based on fitness level
-- 1000+ exercises database with detailed instructions
-- Adaptive difficulty levels (beginner to advanced)
+- **Interactive plan generation** - Asks clarifying questions
+- Custom workout plans based on fitness level, goals, equipment
+- Progressive difficulty levels (beginner to advanced)
 - Targeted muscle group training
-- Duration-based workout customization
+- Home workouts (no equipment) to gym-based programs
 
 ### 🧠 Smart Coaching Features
-- **Real-time streaming** - Instant responses with typing effect
+- **AI-powered intent classification** - Knows when to use API vs provide advice
+- **Real-time streaming** - Instant responses with Server-Sent Events
 - **Context-aware** - Adapts recommendations to user's fitness level
-- **Multi-turn conversations** - Natural back-and-forth dialogue
+- **Conversation memory** - Remembers previous messages in the session
+- **Interactive coaching** - Asks questions before creating plans
 
 ### 🚀 Production Features
+- Built on official **Sentient Agent Framework**
 - Server-Sent Events (SSE) for real-time streaming
 - 24/7 availability with systemd auto-restart
 - Nginx reverse proxy for scalability
 - Comprehensive error handling and logging
-- Beautiful web interface with responsive design
+- Beautiful responsive web interface
 
 ---
 
@@ -59,11 +75,11 @@ This agent follows **Sentient platform API specifications** and provides:
 Before installation, ensure you have:
 
 - **Operating System:** Ubuntu 22.04 (or similar Linux distribution)
-- **Python:** 3.11 or higher
+- **Python:** 3.10 or higher
 - **Web Server:** Nginx (will be installed)
 - **API Keys** (free tiers available):
-  - [OpenRouter API Key](https://openrouter.ai/) - For AI language model
-  - [Nutritionix API Keys](https://nutritionix.com/business/api) - For nutrition data
+  - [OpenRouter API Key](https://openrouter.ai/) - For AI language model (FREE)
+  - [Nutritionix API Keys](https://nutritionix.com/business/api) - For nutrition data (FREE tier: 200 requests/day)
 
 ---
 
@@ -75,12 +91,11 @@ Before installation, ensure you have:
 # Update system packages
 sudo apt update && sudo apt upgrade -y
 
-# Install Python 3.11 and required tools
-sudo apt install python3.11 python3.11-venv python3-pip git nginx -y
+# Install Python and required tools
+sudo apt install python3 python3-venv python3-pip git nginx -y
 
-# Verify Python installation
-python3.11 --version
-# Expected output: Python 3.11.x
+# Verify Python installation (3.10+ required)
+python3 --version
 ```
 
 ### Step 2: Clone Repository
@@ -94,38 +109,31 @@ git clone https://github.com/kasnadoona5/sentient-fitness-coach.git
 
 # Enter project directory
 cd sentient-fitness-coach
-
-# Verify files
-ls -la
 ```
-
-**You should see:** `app.py`, `agent.py`, `index.html`, `tools/`, etc.
 
 ### Step 3: Create Python Virtual Environment
 
 ```bash
 # Create virtual environment
-python3.11 -m venv venv
+python3 -m venv venv
 
 # Activate virtual environment
 source venv/bin/activate
-# Your prompt should now show (venv) at the beginning
+# Your prompt should now show (venv)
 ```
 
 ### Step 4: Install Python Dependencies
 
 ```bash
-# Upgrade pip first
+# Upgrade pip
 pip install --upgrade pip
 
 # Install required packages
-pip install flask gunicorn httpx python-dotenv
+pip install sentient-agent-framework httpx python-dotenv
 
 # Verify installations
-pip list
+pip list | grep -E "sentient|httpx|dotenv"
 ```
-
-**Required packages:** flask, gunicorn, httpx, python-dotenv
 
 ### Step 5: Get API Keys
 
@@ -141,7 +149,7 @@ pip list
 
 1. Go to [Nutritionix Developer Portal](https://developer.nutritionix.com/)
 2. Click **"Get Your API Key"**
-3. Sign up for free developer account (200 requests/day)
+3. Sign up for free developer account
 4. After signup, you'll receive:
    - **Application ID** (e.g., `f20efaf6`)
    - **Application Key** (e.g., `501fdbe4...`)
@@ -149,14 +157,11 @@ pip list
 ### Step 6: Configure Environment Variables
 
 ```bash
-# Create .env file from example
-cp .env.example .env
-
-# Edit with your API keys
+# Create .env file
 nano .env
 ```
 
-**Update with YOUR actual keys:**
+**Paste and update with YOUR actual keys:**
 
 ```env
 # OpenRouter LLM (get from https://openrouter.ai/)
@@ -165,29 +170,11 @@ OPENROUTER_API_KEY=sk-or-v1-YOUR-ACTUAL-KEY-HERE
 # Nutritionix API (get from https://nutritionix.com/business/api)
 NUTRITIONIX_APP_ID=your-actual-app-id-here
 NUTRITIONIX_API_KEY=your-actual-api-key-here
-
-# Agent Configuration
-AGENT_NAME=Fitness Coach
-PORT=8000
-APP_URL=http://your-server-ip-here
-
-# Flask Environment
-FLASK_ENV=production
 ```
 
 **Save:** Press `CTRL+X`, then `Y`, then `Enter`
 
-### Step 7: Create Required Directories
-
-```bash
-# Create logs and data directories
-mkdir -p logs data
-
-# Verify directory structure
-ls -la
-```
-
-### Step 8: Test the Application
+### Step 7: Test the Application
 
 ```bash
 # Ensure virtual environment is active
@@ -199,20 +186,37 @@ python app.py
 
 **Expected output:**
 ```
-Running on http://0.0.0.0:8000
+INFO: Started server process
+INFO: Waiting for application startup.
+INFO: Application startup complete.
+INFO: Uvicorn running on http://0.0.0.0:8000
 ```
 
 **In another terminal, test:**
 
 ```bash
-# Test health endpoint
-curl http://localhost:8000/health
-# Expected: {"status": "healthy", ...}
+# Test API endpoint
+curl -X POST http://localhost:8000/assist \
+  -H "Content-Type: application/json" \
+  -d '{
+    "session": {
+      "user_id": "test",
+      "session_id": "test123",
+      "processor_id": "test123",
+      "activity_id": "test123",
+      "request_id": "test123",
+      "interactions": []
+    },
+    "query": {
+      "id": "test123",
+      "prompt": "hello"
+    }
+  }'
 ```
 
 **Stop test server:** Press `CTRL+C`
 
-### Step 9: Create Systemd Service (Production)
+### Step 8: Create Systemd Service (Production)
 
 ```bash
 sudo nano /etc/systemd/system/sentient-fitness.service
@@ -222,7 +226,7 @@ sudo nano /etc/systemd/system/sentient-fitness.service
 
 ```ini
 [Unit]
-Description=Sentient Fitness Coach Agent
+Description=Sentient Fitness Coach Agent (Framework)
 After=network.target
 
 [Service]
@@ -230,7 +234,7 @@ Type=simple
 User=root
 WorkingDirectory=/var/www/sentient-fitness-coach
 Environment="PATH=/var/www/sentient-fitness-coach/venv/bin"
-ExecStart=/var/www/sentient-fitness-coach/venv/bin/gunicorn --bind 127.0.0.1:8000 --workers 2 --timeout 120 wsgi:app
+ExecStart=/var/www/sentient-fitness-coach/venv/bin/python app.py
 Restart=always
 RestartSec=10
 
@@ -254,7 +258,7 @@ sudo systemctl start sentient-fitness.service
 sudo systemctl status sentient-fitness.service
 ```
 
-### Step 10: Configure Nginx Reverse Proxy
+### Step 9: Configure Nginx Reverse Proxy
 
 ```bash
 # Create Nginx configuration
@@ -275,22 +279,21 @@ server {
         try_files $uri $uri/ =404;
     }
 
-    # Proxy API requests
-    location /chat {
+    # Proxy API requests to Sentient Agent Framework
+    location /assist {
         proxy_pass http://127.0.0.1:8000;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
+        proxy_cache_bypass $http_upgrade;
+        
+        # SSE support
         proxy_buffering off;
-        proxy_read_timeout 300;
-    }
-
-    # Health check endpoint
-    location /health {
-        proxy_pass http://127.0.0.1:8000;
-        proxy_set_header Host $host;
+        proxy_cache off;
+        proxy_read_timeout 300s;
+        proxy_connect_timeout 75s;
     }
 }
 ```
@@ -301,7 +304,7 @@ server {
 # Enable the site
 sudo ln -sf /etc/nginx/sites-available/sentient-fitness /etc/nginx/sites-enabled/
 
-# Remove default site (if exists)
+# Remove default site
 sudo rm -f /etc/nginx/sites-enabled/default
 
 # Test Nginx configuration
@@ -309,72 +312,52 @@ sudo nginx -t
 
 # Restart Nginx
 sudo systemctl restart nginx
-
-# Check Nginx status
-sudo systemctl status nginx
 ```
 
-### Step 11: Final Testing
-
-**Test API directly:**
-
-```bash
-# Test health check
-curl http://localhost/health
-
-# Test chat endpoint
-curl -X POST http://localhost/chat \
-  -H "Content-Type: application/json" \
-  -d '{"user_id":"test","message":"How many calories in 3 eggs?"}'
-```
+### Step 10: Final Testing
 
 **Test web interface:**
 
-Open your browser and go to: `http://YOUR_SERVER_IP/`
+Open your browser: `http://YOUR_SERVER_IP/`
+
+Try these queries:
+- "How many calories in 3 eggs?"
+- "What should I eat before gym?"
+- "Create a beginner workout plan"
 
 ---
 
 ## 📡 API Reference
 
-### Endpoint: `GET /`
+### Endpoint: `POST /assist`
 
-Returns web chat interface (HTML)
-
-**Response:** Beautiful web UI for interacting with the agent
-
-### Endpoint: `GET /health`
-
-Health check endpoint (Sentient standard)
-
-**Response:**
-```json
-{
-  "status": "healthy",
-  "agent": "Fitness Coach AI",
-  "version": "1.0.0",
-  "framework": "Sentient Agent Framework"
-}
-```
-
-### Endpoint: `POST /chat`
-
-Main conversational endpoint with Server-Sent Events streaming
+Main agent endpoint following Sentient Framework standards
 
 **Request:**
 ```json
 {
-  "user_id": "unique_user_identifier",
-  "message": "Your question or request"
+  "session": {
+    "user_id": "unique_user_id",
+    "session_id": "session_123",
+    "processor_id": "proc_123",
+    "activity_id": "act_123",
+    "request_id": "req_123",
+    "interactions": []
+  },
+  "query": {
+    "id": "query_123",
+    "prompt": "How many calories in 3 eggs?"
+  }
 }
 ```
 
-**Response:** SSE stream
+**Response:** Server-Sent Events stream
 ```
-data: {"content": "Based", "type": "chunk"}
-data: {"content": " on", "type": "chunk"}
-data: {"content": " nutrition", "type": "chunk"}
-...
-data: {"type": "done"}
+event: response
+data: {"content_type":"chunked.text","event_name":"response","is_complete":false,"content":"Based on..."}
+
+event: response
+data: {"content_type":"chunked.text","event_name":"response","is_complete":true,"content":" "}
 ```
 
 ---
@@ -383,13 +366,13 @@ data: {"type": "done"}
 
 | Component | Technology | Purpose |
 |-----------|------------|---------|
-| **Backend** | Flask | Web framework |
-| **WSGI Server** | Gunicorn | Production server |
-| **LLM** | OpenRouter (Mistral Small 3.2) | AI language model |
+| **Framework** | Sentient Agent Framework | Agent architecture & SSE streaming |
+| **Backend** | Python 3.10+ asyncio | Async event handling |
+| **LLM** | Mistral Small 3.2 24B (free) | AI language model via OpenRouter |
 | **Nutrition API** | Nutritionix | Food database & calorie data |
 | **HTTP Client** | httpx | Async HTTP requests |
-| **Memory** | JSON files | Conversation history |
-| **Reverse Proxy** | Nginx | Web server & load balancing |
+| **Memory** | In-memory dict | Conversation history (resets on restart) |
+| **Reverse Proxy** | Nginx | Web server & SSE support |
 | **Process Manager** | Systemd | Service management & auto-restart |
 | **Frontend** | HTML/CSS/JavaScript | Web interface |
 
@@ -399,41 +382,33 @@ data: {"type": "done"}
 
 ```
 sentient-fitness-coach/
+├── app.py                  # Main agent implementation (Sentient Framework)
 ├── index.html              # Web chat interface
-├── app.py                  # Flask application & API routes
-├── wsgi.py                 # WSGI entry point for Gunicorn
-├── sentient_agent.py       # Sentient-compatible agent wrapper
-├── agent.py                # Core agent logic & message processing
-├── llm_client.py           # OpenRouter LLM integration
-├── memory.py               # User memory & conversation history
-├── tools/
-│   ├── nutrition.py        # Nutritionix API integration
-│   └── exercise.py         # Workout plan generator
-├── logs/                   # Application logs (auto-created)
-├── data/                   # User data storage (auto-created)
 ├── .env                    # API keys (DO NOT commit!)
-├── .env.example            # Environment template
 ├── .gitignore              # Git ignore rules
+├── requirements.txt        # Python dependencies
 └── README.md               # This file
 ```
+
+**Simple, clean, production-ready!**
 
 ---
 
 ## 🐛 Troubleshooting
 
-### Issue: "Module not found" errors
+### Issue: "Module not found: sentient_agent_framework"
 
 **Solution:**
 ```bash
 source venv/bin/activate
-pip install flask gunicorn httpx python-dotenv
+pip install sentient-agent-framework
 ```
 
 ### Issue: "API key not configured"
 
 **Solution:** Check your `.env` file has correct API keys
 ```bash
-cat .env | grep API
+cat .env
 ```
 
 ### Issue: Port 8000 already in use
@@ -443,40 +418,24 @@ cat .env | grep API
 # Find process using port 8000
 sudo lsof -i :8000
 
-# Kill the process (replace PID)
+# Kill the process
 sudo kill -9 PID
 
 # Restart service
 sudo systemctl restart sentient-fitness.service
 ```
 
-### Issue: Nginx 502 Bad Gateway
+### Issue: Input disabled after first message
 
-**Solution:**
-```bash
-# Check if backend is running
-curl http://127.0.0.1:8000/health
+**Solution:** Clear browser cache (CTRL+SHIFT+R) - This was fixed in v2.0
 
-# If not running, restart service
-sudo systemctl restart sentient-fitness.service
+### Issue: Agent gives wrong calorie estimates
 
-# Check service logs
-sudo journalctl -u sentient-fitness.service -n 50
-```
+**Solution:** Agent now uses ONLY Nutritionix API data - no more hallucinations!
 
 ---
 
 ## 📊 Monitoring & Logs
-
-### View Application Logs
-
-```bash
-# Real-time logs
-tail -f logs/agent.log
-
-# Last 50 lines
-tail -50 logs/agent.log
-```
 
 ### View Service Logs
 
@@ -502,20 +461,70 @@ sudo journalctl -u sentient-fitness.service | grep -i error
 | `OPENROUTER_API_KEY` | OpenRouter API key for LLM | Yes | - |
 | `NUTRITIONIX_APP_ID` | Nutritionix application ID | Yes | - |
 | `NUTRITIONIX_API_KEY` | Nutritionix API key | Yes | - |
-| `AGENT_NAME` | Name of the agent | No | "Fitness Coach" |
-| `PORT` | Server port | No | 8000 |
-| `APP_URL` | Public URL for the agent | No | - |
-| `FLASK_ENV` | Flask environment | No | production |
 
 ---
 
+## 🌟 Features Showcase
+
+### 1. Accurate Nutrition Data
+```
+You: "How many calories in 3 large eggs?"
+Agent: "Based on the Nutritionix API data, 3 large eggs (150g) contain 214.5 kcal.
+        Protein: 18.8g | Carbs: 1.1g | Fat: 14.3g"
+```
+
+### 2. Typo Tolerance
+```
+You: "How many colories are in 2 bananas?"
+Agent: "Based on the Nutritionix API, 2 medium bananas contain 210.0 kcal..."
+```
+
+### 3. AI Food Detection
+```
+You: "avocado nutrition"
+Agent: "Based on the Nutritionix API, 1 avocado (201g) contains 321.6 kcal..."
+```
+
+### 4. Interactive Coaching
+```
+You: "Create a beginner workout plan"
+Agent: "I'd be happy to help! To create the best plan for you, could you tell me:
+        1. Your main goal (weight loss, muscle gain, general fitness)
+        2. How many days per week you'd like to work out
+        3. What equipment do you have access to?..."
+```
+
+### 5. Conversation Memory
+```
+You: "I want to workout at home with no equipment"
+Agent: "Great! Could you tell me your fitness level?"
+You: "beginner"
+Agent: "Thank you! Since you're a beginner working out at home without equipment,
+        here's your 4-week beginner home workout plan..."
+```
+
+---
+
+## 🎯 Testing Results
+
+All 7 test cases passed with 100% accuracy:
+
+✅ Specific nutrition queries (API data)  
+✅ Typo tolerance (colories → calories)  
+✅ General advice (no hallucination)  
+✅ Workout plan generation  
+✅ AI food detection (avocado, sushi, etc.)  
+✅ Compound queries (multiple foods)  
+✅ Conversation memory  
+
+---
 
 ## 🙏 Acknowledgments
 
-- **Sentient Labs** - Decentralized AI platform
-- **OpenRouter** - Free LLM API access
-- **Nutritionix** - Comprehensive nutrition database
-- **Mistral AI** - Open-source language model
+- **[Sentient Agent Framework](https://github.com/sentient-agi/Sentient-Agent-Framework)** - Official framework for building production agents
+- **OpenRouter** - Free LLM API access with Mistral Small 3.2 24B
+- **Nutritionix** - Comprehensive nutrition database (200,000+ foods)
+- **Mistral AI** - High-quality open-source language model
 
 ---
 
@@ -523,33 +532,7 @@ sudo journalctl -u sentient-fitness.service | grep -i error
 
 - **GitHub Repository:** https://github.com/kasnadoona5/sentient-fitness-coach
 - **Report Issues:** https://github.com/kasnadoona5/sentient-fitness-coach/issues
-
----
-
-## 🌟 Features Showcase
-
-### Nutrition Tracking
-Ask questions like:
-- "How many calories in 3 eggs?"
-- "What's the protein content in chicken breast?"
-- "Nutrition facts for 1 cup of oatmeal"
-
-**Response:** Accurate calorie and macronutrient data from Nutritionix API
-
-### Workout Plans
-Ask for workouts like:
-- "Create a beginner workout plan"
-- "Give me a 30-minute chest workout"
-- "I want to build muscle, what exercises should I do?"
-
-**Response:** Personalized workout plans with exercises, sets, reps, and instructions
-
-### Conversation Memory
-The agent remembers your preferences:
-- "What did I ask about earlier?"
-- "Remember my fitness goals"
-
-**Response:** Context-aware responses based on conversation history
+- **Sentient Framework:** https://github.com/sentient-agi/Sentient-Agent-Framework
 
 ---
 
@@ -557,4 +540,4 @@ The agent remembers your preferences:
 
 ---
 
-**Built with ❤️ for the Sentient decentralized AI network**
+**Built with ❤️ using Sentient Agent Framework**

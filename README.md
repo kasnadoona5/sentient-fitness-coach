@@ -1,6 +1,6 @@
 # 🏋️ Sentient Fitness Coach Agent
 
-> **Built for the [Sentient Platform](https://sentient.xyz)** - Following [Sentient API standards](https://github.com/sentient-agi/Sentient-Agent-Framework) 
+> **Built for the [Sentient Platform](https://sentient.xyz)** - Following [Sentient Agent Framework standards](https://github.com/sentient-agi/Sentient-Agent-Framework) 
 
 An intelligent AI-powered fitness and nutrition coach compatible with the Sentient decentralized AI platform. Provides accurate calorie tracking, personalized workout plans, and real-time coaching through natural conversation.
 

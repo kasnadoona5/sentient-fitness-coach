@@ -1,14 +1,14 @@
 # 🏋️ Sentient Fitness Coach Agent
 
-> **Built for the [Sentient Platform](https://sentient.xyz)** - Following Sentient API standards
+> **Built for the [Sentient Platform](https://sentient.xyz)** - Following [Sentient API standards](https://github.com/sentient-agi/Sentient-Agent-Framework) 
 
 An intelligent AI-powered fitness and nutrition coach compatible with the Sentient decentralized AI platform. Provides accurate calorie tracking, personalized workout plans, and real-time coaching through natural conversation.
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Status: Production](https://img.shields.io/badge/status-production-success.svg)]()
 
-**🔗 Live Demo:** http://138.124.101.59/
+<img width="1289" height="1260" alt="image" src="https://github.com/user-attachments/assets/22eb532c-1367-4606-b4fc-8d5233f4b9c6" />
+
 
 ---
 
@@ -23,8 +23,6 @@ This agent follows **Sentient platform API specifications** and provides:
 - ✅ **Production-ready** deployment with Nginx + Gunicorn
 - ✅ **Web interface** for easy interaction
 
-**Platform:** https://sentient.xyz  
-**Builder Program:** https://sentient.xyz/builder-program
 
 ---
 
@@ -45,7 +43,6 @@ This agent follows **Sentient platform API specifications** and provides:
 - Duration-based workout customization
 
 ### 🧠 Smart Coaching Features
-- **Conversation memory** - Remembers user preferences and history
 - **Real-time streaming** - Instant responses with typing effect
 - **Context-aware** - Adapts recommendations to user's fitness level
 - **Multi-turn conversations** - Natural back-and-forth dialogue
@@ -63,7 +60,7 @@ This agent follows **Sentient platform API specifications** and provides:
 
 Before installation, ensure you have:
 
-- **Operating System:** Ubuntu 20.04+ (or similar Linux distribution)
+- **Operating System:** Ubuntu 22.04 (or similar Linux distribution)
 - **Python:** 3.11 or higher
 - **Web Server:** Nginx (will be installed)
 - **API Keys** (free tiers available):
@@ -544,10 +541,8 @@ This project is licensed under the MIT License - free for personal and commercia
 
 ## 📞 Support & Links
 
-- **Live Demo:** http://138.124.101.59/
 - **GitHub Repository:** https://github.com/kasnadoona5/sentient-fitness-coach
 - **Sentient Platform:** https://sentient.xyz
-- **Builder Program:** https://sentient.xyz/builder-program
 - **Report Issues:** https://github.com/kasnadoona5/sentient-fitness-coach/issues
 
 ---
@@ -581,4 +576,6 @@ The agent remembers your preferences:
 
 **Built with ❤️ for the Sentient decentralized AI network**
 
-🔗 **Try it now:** http://138.124.101.59/
+
+<img width="961" height="1244" alt="image" src="https://github.com/user-attachments/assets/91d7f96a-4e9b-4b5d-85f2-881072cfb48b" />
+

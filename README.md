@@ -75,7 +75,7 @@ This agent is built with the **official Sentient Agent Framework** and provides:
 Before installation, ensure you have:
 
 - **Operating System:** Ubuntu 22.04 (or similar Linux distribution)
-- **Python:** 3.10 or higher
+- **Python:** 3.11 or higher
 - **Web Server:** Nginx (will be installed)
 - **API Keys** (free tiers available):
   - [OpenRouter API Key](https://openrouter.ai/) - For AI language model (FREE)
@@ -91,12 +91,21 @@ Before installation, ensure you have:
 # Update system packages
 sudo apt update && sudo apt upgrade -y
 
-# Install Python and required tools
-sudo apt install python3 python3-venv python3-pip git nginx -y
+# Install software-properties-common (needed for adding PPA)
+sudo apt install software-properties-common -y
 
-# Verify Python installation (3.10+ required)
-python3 --version
+#Add deadsnakes PPA for Python 3.11+
+sudo add-apt-repository ppa:deadsnakes/ppa -y
+sudo apt update
+
+#Install Python 3.11, venv, pip, and required tools
+sudo apt install python3.11 python3.11-venv python3.11-dev git nginx -y
+
+#Verify Python 3.11 installation (required for Sentient Framework)
+python3.11 --version
 ```
+
+
 
 ### Step 2: Clone Repository
 
